@@ -1,0 +1,19 @@
+{
+  "name": "browser-benchmarking",
+  "version": "0.0.1",
+  "description": "A cross-browser benchmarking system",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "alexa500": "./node_modules/.bin/chromedriver && node ./index.js"
+  },
+  "keywords": [
+    "benchmarking"
+  ],
+  "author": "alex@brave.com",
+  "license": "MPL-2.0",
+  "dependencies": {
+    "electron-chromedriver": "^1.6.0",
+    "selenium-webdriver": "^3.3.0"
+  }
+}
