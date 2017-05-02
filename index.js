@@ -1,4 +1,6 @@
+var jsonfile = require('jsonfile')
 const webdriver = require('selenium-webdriver')
+
 const driver = new webdriver.Builder()
   // The "9515" is the port opened by chrome driver.
   .usingServer('http://localhost:9515')
@@ -10,12 +12,28 @@ const driver = new webdriver.Builder()
   })
   .forBrowser('electron')
   .build()
-driver.get('http://www.google.com')
-driver.findElement(webdriver.By.name('q')).sendKeys('webdriver')
-driver.findElement(webdriver.By.name('btnG')).click()
-driver.wait(() => {
-  return driver.getTitle().then((title) => {
-    return title === 'webdriver - Google Search'
-  })
-}, 1000)
+
+
+var file = './alexa_10000.json'
+domains=jsonfile.readFileSync(file)
+//console.dir(jsonfile.readFileSync(file))
+console.log(domains.length)
+var startTime = Date.now()
+for (var i = 0; i < domains.length; i++){
+  var startDomain = Date.now()
+  console.log(domains[i])
+  driver.get(domains[i])
+  driver.wait(() => {
+    return driver.getTitle().then((title) => {
+      console.log(title)
+      var endDomain = Date.now()
+      domainTime = endDomain - startDomain
+      console.log('Domain Time : ' + domainTime)
+    })
+  }, 1000)
+}
 driver.quit()
+var endTime = Date.now()
+
+var totalTime = endTime - startTime
+console.log('Total time : ' + totalTime)
